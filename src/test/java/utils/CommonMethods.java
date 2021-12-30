@@ -26,14 +26,20 @@ public class CommonMethods {
             case"chrome":
             //    System.setProperty("webdriver.chrome.driver", "src/Drivers/chromedriver.exe");
 
-                //we write this piece of code and pass chromeOptions to the webdriver: driver = new ChromeDriver(chromeOptions);
-                //to get all the testing will be done behind the seeing
-                // to make it work (for jenkins)
-                ChromeOptions chromeOptions= new ChromeOptions();
-                chromeOptions.setHeadless(true);
+                //we are checking for a properties
+                if(ConfigReader.getPropertyValue("headless").equals("true")){
+                    //we write this piece of code and pass chromeOptions to the webdriver: driver = new ChromeDriver(chromeOptions);
+                    //to get all the testing will be done behind the seeing
+                    // to make it work (for jenkins)
+                    ChromeOptions chromeOptions= new ChromeOptions();
+                    chromeOptions.setHeadless(true);
 
-                WebDriverManager.chromedriver().setup();
-                driver = new ChromeDriver(chromeOptions);
+                    WebDriverManager.chromedriver().setup();
+                    driver = new ChromeDriver(chromeOptions);
+                } else{
+                    WebDriverManager.chromedriver().setup();
+                    driver = new ChromeDriver();
+                }
                 break;
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
